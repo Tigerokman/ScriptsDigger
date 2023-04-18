@@ -39,10 +39,14 @@ public class GoldAnimation : MonoBehaviour
             _tweener.ChangeEndValue(_target.position, _timeLife, true);
             _targetLastPosition = _target.position;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Destroy()
     {
-        Destroy(gameObject,_timeLife + -0.015f);
+        Destroy(gameObject,_timeLife);
     }
 }

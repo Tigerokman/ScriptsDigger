@@ -14,6 +14,7 @@ public class InfoUI : MonoBehaviour
 
     private void Start()
     {
+        string temp = _level.text;
         _playerDig.enabled = false;
         _playerMovement.enabled = false;
 
@@ -21,9 +22,7 @@ public class InfoUI : MonoBehaviour
         if (_endLevelTimeChange != null)
             _endLevelTimeChange.ChangeRunTime();
 
-
-        string level = "Level ";
-        _level.text = level + SceneManager.GetActiveScene().buildIndex;
+        _level.text = temp + SceneManager.GetActiveScene().buildIndex;
     }
 
     public void ClosePanel()

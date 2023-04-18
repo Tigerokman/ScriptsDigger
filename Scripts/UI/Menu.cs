@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
@@ -10,6 +11,19 @@ public class Menu : MonoBehaviour
     [SerializeField] private SettingsUI _settingsUI;
 
     private int _scene = 0;
+    private string _language = "Language";
+
+    private void Awake()
+    {
+        if (PlayerPrefs.HasKey(_language) == false)
+        {
+            if(Application.systemLanguage == SystemLanguage.Russian)
+                PlayerPrefs.SetInt(_language, 1);
+            else
+                PlayerPrefs.SetInt(_language, 0);
+        }
+        Translator.SelectLanguage(PlayerPrefs.GetInt(_language));
+    }
 
     public void StartGame()
     {
@@ -27,6 +41,17 @@ public class Menu : MonoBehaviour
         }
 
         Fade(); 
+    }
+
+    public void ButtonOn(Button button)
+    {
+        button.enabled = true;
+    }
+
+    public void LangeaugeChange(int IDlanguage)
+    {
+        PlayerPrefs.SetInt(_language, IDlanguage);
+        Translator.SelectLanguage(PlayerPrefs.GetInt(_language));
     }
 
     public void OpenPanel(GameObject panel)

@@ -17,6 +17,12 @@ public class SettingsUI : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerPrefs.GetFloat(_volume) == 0)
+        {
+            float startVolume = 0.5f;
+            PlayerPrefs.SetFloat(_volume, startVolume);
+        }
+
         _track = GetComponent<AudioSource>();
         _slider.value = PlayerPrefs.GetFloat(_volume);
         _audioMixer.SetFloat(_volume, Mathf.Log10(0.0001f) * _valueDecrease);

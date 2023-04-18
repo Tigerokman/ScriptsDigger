@@ -4,12 +4,13 @@ using UnityEngine;
 
 public abstract class Upgrade : MonoBehaviour
 {
-    [SerializeField] private string _label;
+    [SerializeField] private int _labelNumber;
     [SerializeField] private int _startPrice;
     [SerializeField] private Sprite _icon;
     [SerializeField] private float _upgradeValue;
     [SerializeField] private int _buyPriceDecrease;
 
+    private string _label => Translator.GetText(_labelNumber);
     private PlayerStats _playerStats;
     private int _currentPrice;
     private int _leftCount;

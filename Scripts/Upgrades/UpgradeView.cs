@@ -16,11 +16,19 @@ public class UpgradeView : MonoBehaviour
     [SerializeField] private GameObject _charactersUpgrade;
     [SerializeField] private GameObject _buttonParticle;
     [SerializeField] private GameObject _silverButtonChildImage;
+    [SerializeField] private int _textTranslatorAvailable;
+    [SerializeField] private int _textTranslatorLevel;
 
     private Upgrade _upgrade;
     private PlayerWallet _wallet;
+    private string _availavleText => Translator.GetText(_textTranslatorAvailable);
+    private string _levelText => Translator.GetText(_textTranslatorLevel);
 
     public event UnityAction<Upgrade, UpgradeView> UpgradeButtonClick;
+
+    private void Start()
+    {
+    }
 
     private void OnEnable()
     {
@@ -45,9 +53,9 @@ public class UpgradeView : MonoBehaviour
     public void UpdateViewPrice(Upgrade upgrade, PlayerStats player)
     {
         if (upgrade == player.UpgradeHedgehog)
-            _level.text = player.CountHedgehogUpgrade.ToString() + " Available";
+            _level.text = player.CountHedgehogUpgrade.ToString() + _availavleText;
         else
-            _level.text = "Level " + upgrade.Level.ToString();
+            _level.text = _levelText + upgrade.Level.ToString();
 
         _price.text = upgrade.Price.ToString();
     }

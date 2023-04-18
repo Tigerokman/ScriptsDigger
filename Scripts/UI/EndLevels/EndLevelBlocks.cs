@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndLevelBlocks : EndLevel
 {
@@ -65,6 +66,8 @@ public class EndLevelBlocks : EndLevel
             LoseSound();
             PlayerOff();
             _isLose = true;
+            AnalycicsComponent.OnPlayerDead(SceneManager.GetActiveScene().buildIndex);
+            Debug.Log("ЗаписалСмэрть");
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AnalycicsComponent))]
 public class EndLevel : MonoBehaviour
 {
     [SerializeField] private GameObject _winPanel;
@@ -13,7 +14,13 @@ public class EndLevel : MonoBehaviour
 
     private bool _isRunTime = true;
 
+    protected AnalycicsComponent AnalycicsComponent;
     public bool IsRunTime => _isRunTime;
+
+    private void Awake()
+    {
+        AnalycicsComponent = GetComponent<AnalycicsComponent>();
+    }
 
     public virtual void EndLevelTrigger()
     {
@@ -26,12 +33,23 @@ public class EndLevel : MonoBehaviour
 
     public void Fade(string load)
     {
-        string restart = "Restart";
+        string restartWin = "RestartWin";
+        string restartLose = "RestartLose";
         string nextLevel = "NextLevel";
         string mainMenu = "MainMenu";
 
-        if (load == restart)
+        if (load == restartWin)
         {
+            bool isLose = false;
+            AnalycicsComponent.RestartLevelAnalytics(SceneManager.GetActiveScene().buildIndex, isLose);
+            Debug.Log("ЗаписалВин");
+            _menu.AppointScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        else if (load == restartLose)
+        {
+            bool isLose = true;
+            AnalycicsComponent.RestartLevelAnalytics(SceneManager.GetActiveScene().buildIndex, isLose);
+            Debug.Log("ЗаписалЛуз");
             _menu.AppointScene(SceneManager.GetActiveScene().buildIndex);
         }
         else if (load == nextLevel)
